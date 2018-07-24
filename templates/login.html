@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/plugins/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/login.css">
+</head>
+<body>
+
+<div class="container">
+
+    <form class="form-signin" action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <h2 class="form-signin-heading">请登陆</h2>
+        <label for="user" class="sr-only">Email address</label>
+        <input type="text" id="user" class="form-control" placeholder="用户名" required="" autofocus="" name="user">
+        <label for="inputPassword" class="sr-only">密码</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="" name="pwd">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> 记住我
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
+    </form>
+
+</div> <!-- /container -->
+
+
+</body>
+</html>

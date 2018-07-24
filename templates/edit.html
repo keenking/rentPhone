@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加书籍</title>
+
+    <link rel="stylesheet" href="/static/plugins/bootstrap-3.3.7-dist/css/bootstrap.css">
+</head>
+<body>
+<div class="container">
+    <form class="form-horizontal" action="{% url 'edit_book' book_obj.id %}" method="post" novalidate>
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">书名</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" placeholder="name" name="name"
+                       value="{{ book_obj.title }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="price" class="col-sm-2 control-label">价格</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="price" placeholder="price" name="price"
+                       value="{{ book_obj.price }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="date" class="col-sm-2 control-label">出版日期</label>
+            <div class="col-sm-10">
+                <input type="date" class="form-control" id="date" name="date"
+                       value="{{ book_obj.pub_date |date:'Y-m-d' }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="publish" class="col-sm-2 control-label">出版社</label>
+            <div class="col-sm-10">
+                <select name="publish" id="publish" class="form-control">
+                    {% for publisher in publishers %}
+                        {% if book_obj.publish == publisher %}
+                            <option value="{{ publisher.id }}" selected>{{ publisher.name }}</option>
+                        {% else %}
+                            <option value="{{ publisher.id }}">{{ publisher.name }}</option>
+                        {% endif %}
+
+                    {% endfor %}
+
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="authors" class="col-sm-2 control-label">作者</label>
+            <div class="col-sm-10">
+                <select name="authors" id="authors" class="form-control" multiple>
+                    {% for author in authors %}
+                        {% if author in book_obj.authors.all %}
+                            <option value="{{ author.id }}" selected>{{ author.name }}</option>
+                        {% else %}
+                            <option value="{{ author.id }}">{{ author.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">提交</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+</body>
+</html>
